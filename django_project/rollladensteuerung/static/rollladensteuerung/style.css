@@ -2,5 +2,6 @@ body {
   background-color: white;
 }
 #wohnzimmer {
-  background-color: green
+  background-color: green;
+  width: 150px
 }
