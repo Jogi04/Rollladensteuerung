@@ -1,3 +1,22 @@
-body {
-    background-color: green;
+h2 {
+    text-align: center;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    text-align: center;
+}
+
+.container > a{
+    background: lightblue;
+    padding: 1em;
+    border-radius: 7px;
 }
