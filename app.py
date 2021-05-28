@@ -1,10 +1,11 @@
+from threading import Thread
+import configparser
 from flask import Flask, render_template, request, redirect
 from communication import Client
-from threading import Thread
 
 app = Flask(__name__)
 
-shutters = [
+'''shutters = [
     {
         'room': 'Wohnzimmer',
         'ip': '192.168.178.89',
@@ -20,11 +21,16 @@ shutters = [
         'ip': '192.168.178.91',
         'state': 'open'
     }
-]
+]'''
 
 
 @app.route('/')
 def index():
+    config = configparser.ConfigParser()
+    config.read('shutters.ini')
+    shutters = []
+    for i in config.sections():
+        shutters.append(dict(config.items(i)))
     return render_template('home.html', shutters=shutters)
 
 
