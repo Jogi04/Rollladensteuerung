@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def index():
+def home():
     config = configparser.ConfigParser()
     config.read('shutters.ini')
     shutters = []
@@ -21,13 +21,13 @@ def room(room_name):
     return render_template(f'{room_name.lower()}.html')
 
 
-@app.route('/handle_data', methods=['POST'])
-def handle_data():
+@app.route('/handle_shutter_change', methods=['POST'])
+def handle_shutter_change():
     form = request.form
     form_dict = form.to_dict()
 
     # call client class to send data to shutter control server in a new thread
-    # sends data "open" or "close" to specified ip
+    # sends data "open" or "close" to specified ip on port 80
 
     def send_data():
         Client(form_dict['change'], (form_dict['ip'], 80))

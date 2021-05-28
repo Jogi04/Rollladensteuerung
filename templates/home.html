@@ -5,9 +5,9 @@
     <div class="container">
         {% for shutter in shutters %}
             {% if shutter.state == 'open' %}
-                <a href="/{{ shutter.room }}" style="background:lightblue;">
+                <a href="/{{ shutter.room.lower() }}" style="background:lightblue;">
             {% else %}
-                <a href="/{{ shutter.room }}" style="background:green;">
+                <a href="/{{ shutter.room.lower() }}" style="background:green;">
             {% endif %}
                 <div>
                     <b>{{ shutter.room }}</b>
