@@ -4,15 +4,19 @@
     <br>
     <div class="container">
         {% for shutter in shutters %}
-        <a href="/{{ shutter.room }}">
-            <div>
-                <b>{{ shutter.room }}</b>
-                <br>
-                <br>
-                <label>Status: </label>
-                <label>{{ shutter.state }}</label>
-            </div>
-        </a>
+            {% if shutter.state == 'open' %}
+                <a href="/{{ shutter.room }}" style="background:lightblue;">
+            {% else %}
+                <a href="/{{ shutter.room }}" style="background:green;">
+            {% endif %}
+                <div>
+                    <b>{{ shutter.room }}</b>
+                    <br>
+                    <br>
+                    <label>Status: </label>
+                    <label>{{ shutter.state }}</label>
+                </div>
+            </a>
         {% endfor %}
     </div>
 {% endblock content %}
