@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Rollladen Steuerung</h2>
+    <br>
+    <div class="container">
+        {% for shutter in shutters %}
+        <a href="/{{ shutter.room }}">
+            <div>
+                <b>{{ shutter.room }}</b>
+                <br>
+                <br>
+                <label>Status: </label>
+                <label>{{ shutter.state }}</label>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+{% endblock content %}

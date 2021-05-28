@@ -2,28 +2,35 @@ from flask import Flask, render_template, request, redirect
 from communication import Client
 from threading import Thread
 
-
 app = Flask(__name__)
+
+shutters = [
+    {
+        'room': 'Wohnzimmer',
+        'ip': '192.168.178.89',
+        'state': 'open'
+    },
+    {
+        'room': 'Schlafzimmer',
+        'ip': '192.168.178.90',
+        'state': 'open'
+    },
+    {
+        'room': 'Arbeitszimmer',
+        'ip': '192.168.178.91',
+        'state': 'open'
+    }
+]
 
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('home.html', shutters=shutters)
 
 
-@app.route('/wohnzimmer')
-def wohnzimmer():
-    return render_template('wohnzimmer.html')
-
-
-@app.route('/schlafzimmer')
-def schlafzimmer():
-    return render_template('schlafzimmer.html')
-
-
-@app.route('/esszimmer')
-def esszimmer():
-    return render_template('esszimmer.html')
+@app.route('/<room_name>')
+def room(room_name):
+    return render_template(f'{room_name.lower()}.html')
 
 
 @app.route('/handle_data', methods=['POST'])

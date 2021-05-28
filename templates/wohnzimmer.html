@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Rollladen Steuerung</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <h2>Wohnzimmer</h2>
     <form action="/handle_data" method="POST">
         <input type="hidden" name="change" value="open" />
@@ -17,5 +13,4 @@
         <input type="hidden" name="ip" value="192.168.178.78"/>
         <input type="submit" value="Schließen" />
     </form>
-</body>
-</html>
+{% endblock content %}
