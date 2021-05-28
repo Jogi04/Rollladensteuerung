@@ -4,19 +4,32 @@
     <br>
     <div class="container">
         {% for shutter in shutters %}
-            {% if shutter.state == 'open' %}
-                <a href="/{{ shutter.room.lower() }}" style="background:lightblue;">
+            {% if shutter.state == 'offen' %}
+                <div style="background:lightblue;">
             {% else %}
-                <a href="/{{ shutter.room.lower() }}" style="background:green;">
+                <div style="background:green;">
             {% endif %}
-                <div>
-                    <b>{{ shutter.room }}</b>
-                    <br>
-                    <br>
-                    <label>Status: </label>
-                    <label>{{ shutter.state }}</label>
-                </div>
-            </a>
+                <b>{{ shutter.room }}</b>
+                <br>
+                <br>
+                <label>Status: </label>
+                <label>{{ shutter.state }}</label>
+                <br>
+                <br>
+                <form action="/handle_shutter_change" method="POST">
+                    <input type="hidden" name="change" value="open" />
+                    <input type="hidden" name="room" value="{{ shutter.room.lower() }}"/>
+                    <input type="hidden" name="ip" value="{{ shutter.ip }}"/>
+                    <input type="submit" value="Öffnen" />
+                </form>
+                <br>
+                <form action="/handle_shutter_change" method="POST">
+                    <input type="hidden" name="change" value="close" />
+                    <input type="hidden" name="room" value="{{ shutter.room.lower() }}"/>
+                    <input type="hidden" name="ip" value="{{ shutter.ip }}"/>
+                    <input type="submit" value="Schließen" />
+                </form>
+            </div>
         {% endfor %}
     </div>
 {% endblock content %}

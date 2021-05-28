@@ -34,7 +34,7 @@ def handle_shutter_change():
 
     t1 = Thread(target=send_data)
     t1.start()
-    return redirect(f'/{form_dict["room"]}')
+    return redirect('/')
 
 
 if __name__ == '__main__':
