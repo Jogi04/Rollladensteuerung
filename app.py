@@ -5,24 +5,6 @@ from communication import Client
 
 app = Flask(__name__)
 
-'''shutters = [
-    {
-        'room': 'Wohnzimmer',
-        'ip': '192.168.178.89',
-        'state': 'closed'
-    },
-    {
-        'room': 'Schlafzimmer',
-        'ip': '192.168.178.90',
-        'state': 'open'
-    },
-    {
-        'room': 'Esszimmer',
-        'ip': '192.168.178.91',
-        'state': 'open'
-    }
-]'''
-
 
 @app.route('/')
 def index():
