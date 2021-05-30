@@ -16,9 +16,9 @@ def home():
     return render_template('home.html', shutters=shutters)
 
 
-@app.route('/<room_name>')
+'''@app.route('/<room_name>')
 def room(room_name):
-    return render_template(f'{room_name.lower()}.html')
+    return render_template(f'{room_name.lower()}.html')'''
 
 
 @app.route('/handle_shutter_change', methods=['POST'])
