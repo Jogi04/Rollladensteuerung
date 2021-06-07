@@ -1,7 +1,7 @@
 from threading import Thread
 import configparser
-from flask import render_template, request, redirect
-from Rollladensteuerung import app
+from flask import render_template, request, redirect, copy_current_request_context
+from Rollladensteuerung import app, db
 from Rollladensteuerung.communication import Client
 
 
@@ -17,15 +17,18 @@ def home():
 
 @app.route('/handle_shutter_change', methods=['POST'])
 def handle_shutter_change():
-    form = request.form
-    form_dict = form.to_dict()
-
     # call client class to send data to shutter control server in a new thread
     # sends data "open" or "close" to specified ip on port 80
 
+    @copy_current_request_context
     def send_data():
-        Client(form_dict['change'], (form_dict['ip'], 80))
+        Client(request.form['ip'], request.form['change'])
 
     t1 = Thread(target=send_data)
     t1.start()
+
+    shutter = (request.form['room'], request.form['change'], request.form['ip'])  # pass tuple to db
+    db.session.add(shutter)
+    db.session.commit()
+
     return redirect('/')

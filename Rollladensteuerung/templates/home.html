@@ -18,14 +18,14 @@
                 <br>
                 <form action="/handle_shutter_change" method="POST">
                     <input type="hidden" name="change" value="open" />
-                    <input type="hidden" name="room" value="{{ shutter.room.lower() }}"/>
+                    <input type="hidden" name="room" value="{{ shutter.room }}"/>
                     <input type="hidden" name="ip" value="{{ shutter.ip }}"/>
                     <input type="submit" value="Öffnen" />
                 </form>
                 <br>
                 <form action="/handle_shutter_change" method="POST">
                     <input type="hidden" name="change" value="close" />
-                    <input type="hidden" name="room" value="{{ shutter.room.lower() }}"/>
+                    <input type="hidden" name="room" value="{{ shutter.room }}"/>
                     <input type="hidden" name="ip" value="{{ shutter.ip }}"/>
                     <input type="submit" value="Schließen" />
                 </form>

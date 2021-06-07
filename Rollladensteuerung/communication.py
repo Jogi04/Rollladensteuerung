@@ -3,7 +3,7 @@ import socket
 
 
 class Client:
-    def __init__(self, send_data, server_ip):
+    def __init__(self, server_ip, send_data):
         self.send_data = send_data
         self.server_ip = server_ip
         if self.server_is_reachable():
@@ -14,9 +14,7 @@ class Client:
             return
 
     def server_is_reachable(self):
-        ip = list(self.server_ip)[0]
-        print(ip)
-        if os.system(f'ping -c 1 {ip}') is 0:
+        if os.system(f'ping -c 1 {self.server_ip}') is 0:
             return True
         else:
             return False
