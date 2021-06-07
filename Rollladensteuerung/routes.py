@@ -1,9 +1,8 @@
 from threading import Thread
 import configparser
-from flask import Flask, render_template, request, redirect
-from communication import Client
-
-app = Flask(__name__)
+from flask import render_template, request, redirect
+from Rollladensteuerung import app
+from Rollladensteuerung.communication import Client
 
 
 @app.route('/')
@@ -14,11 +13,6 @@ def home():
     for i in config.sections():
         shutters.append(dict(config.items(i)))
     return render_template('home.html', shutters=shutters)
-
-
-'''@app.route('/<room_name>')
-def room(room_name):
-    return render_template(f'{room_name.lower()}.html')'''
 
 
 @app.route('/handle_shutter_change', methods=['POST'])
@@ -35,7 +29,3 @@ def handle_shutter_change():
     t1 = Thread(target=send_data)
     t1.start()
     return redirect('/')
-
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
