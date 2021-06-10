@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Add Shutter</h2>
+
+    <form action="/add_shutter" method="post">
+        <label for="room">Room</label>
+        <input type="text" name="room" placeholder="Room"/><br><br>
+        <label for="ip">IP Address</label>
+        <input type="text" name="ip" placeholder="IP"/>
+        <input type="hidden" name="state" value="open"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+{%endblock content %}#

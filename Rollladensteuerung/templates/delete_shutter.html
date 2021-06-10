@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Delete Shutter</h2>
+
+    <form action="/delete_shutter" method="post">
+        {% for shutter in shutters %}
+        <label for="{{ shutter.room }}">{{ shutter.room }}</label>
+        <input type="checkbox" name="{{ shutter.room }}"><br>
+        {% endfor %}
+        <input type="submit" value="Submit">
+    </form>
+
+{%endblock content %}#
