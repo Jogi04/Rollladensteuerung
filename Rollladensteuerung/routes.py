@@ -5,6 +5,7 @@ from Rollladensteuerung.communication import Client
 
 
 @app.route('/')
+@app.route('/home')
 def home():
     return render_template('home.html', shutters=Shutter.query.all())
 

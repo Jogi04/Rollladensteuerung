@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
+    <div class="navbar">
+        <a href="/delete_shutter">Delete</a>
+        <a href="/add_shutter">Add</a>
+        <a href="/home">Home</a>
+    </div>
     <h2>Rollladen Steuerung</h2>
     <br>
-    <div class="container">
+    <div class="grid-container">
         {% for shutter in shutters %}
             {% if shutter.state == 'open' %}
                 <div style="background:lightblue;">
