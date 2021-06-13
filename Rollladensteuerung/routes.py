@@ -43,3 +43,8 @@ def delete_shutter():
             Shutter.query.filter_by(room=room).delete()
             db.session.commit()
         return redirect('/')
+
+
+@app.route('/test')
+def test_route():
+    return render_template('test.html')
