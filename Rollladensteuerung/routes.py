@@ -39,12 +39,6 @@ def delete_shutter():
     if request.method == 'GET':
         return render_template('delete_shutter.html', shutters=Shutter.query.all())
     elif request.method == 'POST':
-        for room in request.form:
-            Shutter.query.filter_by(room=room).delete()
-            db.session.commit()
+        Shutter.query.filter_by(room=request.form.get('room')).delete()
+        db.session.commit()
         return redirect('/')
-
-
-@app.route('/test')
-def test_route():
-    return render_template('test.html')

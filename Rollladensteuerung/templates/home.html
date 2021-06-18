@@ -3,20 +3,16 @@
     <link rel="stylesheet" href="/static/style.css">
 {% endblock head %}
 {% block body %}
-    <div class="navbar">
-        <a href="/delete_shutter">Delete</a>
-        <a href="/add_shutter">Add</a>
-        <a href="/home">Home</a>
-    </div>
     <h2>Rollladen Steuerung</h2>
     <br>
     <div class="grid-container">
         {% for shutter in shutters %}
-            {% if shutter.state == 'open' %}
+            <!--{% if shutter.state == 'open' %}
                 <div style="background:lightblue;">
             {% else %}
                 <div style="background:green;">
-            {% endif %}
+            {% endif %}-->
+        <div>
                 <b>{{ shutter.room }}</b>
                 <br>
                 <br>
@@ -28,14 +24,14 @@
                     <input type="hidden" name="state" value="open" />
                     <input type="hidden" name="room" value="{{ shutter.room }}"/>
                     <input type="hidden" name="ip" value="{{ shutter.ip }}"/>
-                    <input type="submit" value="Open" />
+                    <input type="submit" value="Open" class="btn"/>
                 </form>
                 <br>
                 <form action="/handle_shutter_change" method="POST">
                     <input type="hidden" name="state" value="close" />
                     <input type="hidden" name="room" value="{{ shutter.room }}"/>
                     <input type="hidden" name="ip" value="{{ shutter.ip }}"/>
-                    <input type="submit" value="Close" />
+                    <input type="submit" value="Close" class="btn"/>
                 </form>
             </div>
         {% endfor %}

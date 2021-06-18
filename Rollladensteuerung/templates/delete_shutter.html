@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="/static/style.css">
+{% endblock head %}
 {% block body %}
     <h2>Delete Shutter</h2>
-
-    <form action="/delete_shutter" method="post">
-        {% for shutter in shutters %}
-        <label for="{{ shutter.room }}">{{ shutter.room }}</label>
-        <input type="checkbox" name="{{ shutter.room }}"><br>
-        {% endfor %}
-        <input type="submit" value="Submit">
-    </form>
-
-{%endblock body %}#
+    <div class="delete-div">
+        <form action="/delete_shutter" method="post">
+            <label for="room">Room</label>
+            <select name="room">
+                {% for shutter in shutters %}
+                <option value="{{ shutter.room }}">{{ shutter.room }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" class="submit-btn" value="Delete">
+        </form>
+    </div>
+{% endblock body %}
