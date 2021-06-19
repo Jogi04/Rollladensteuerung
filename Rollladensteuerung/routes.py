@@ -14,7 +14,7 @@ def home():
 def handle_shutter_change():
     # call client class to send data to shutter control server in a new thread
     # sends data "open" or "close" to specified ip on port 80
-    # Client(request.form['ip'], request.form['state'])
+    Client(request.form['ip'], request.form['state'])
 
     update = Shutter.query.filter_by(room=request.form['room']).first()
     update.state = request.form['state']
@@ -40,5 +40,16 @@ def delete_shutter():
         return render_template('delete_shutter.html', shutters=Shutter.query.all())
     elif request.method == 'POST':
         Shutter.query.filter_by(room=request.form.get('room')).delete()
+        db.session.commit()
+        return redirect('/')
+
+
+@app.route('/edit_shutter', methods=['GET', 'POST'])
+def edit_shutter():
+    if request.method == 'GET':
+        return render_template('edit_shutter.html', shutters=Shutter.query.all())
+    elif request.method == 'POST':
+        Shutter.query.filter_by(id=request.form['id']).update(dict(room=request.form['room']))
+        Shutter.query.filter_by(id=request.form['id']).update(dict(ip=request.form['ip']))
         db.session.commit()
         return redirect('/')
