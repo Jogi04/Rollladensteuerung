@@ -4,6 +4,14 @@
     <title>Rollladen Steuerung</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/dashboard.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#Rollladen").click(function(){
+                $("#main_content").load("/home");
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="side-navbar">
@@ -11,18 +19,18 @@
              <h2><span>Dashboard</span></h2>
         </div>
         <div class="nav-item">
-            <span>Rollladen</span>
+            <div id="Rollladen">Rollladen</div>
         </div>
         <div class="nav-item">
-            <span>Info</span>
+            <div>Info</div>
         </div>
         <div class="nav-item">
-            <span>Einstellungen</span>
+            <div>Einstellungen</div>
         </div>
     </div>
 
-    <div class="main-content">
-        main Content
+    <div id="main_content">
+
     </div>
 </body>
 </html>

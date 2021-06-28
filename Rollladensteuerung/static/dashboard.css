@@ -32,9 +32,9 @@
 }
 
 .nav-item:hover {
-    background: green;
+    background: var(--color-primary);
 }
 
-.main-content {
+#main_content {
     margin-left: 345px;
 }

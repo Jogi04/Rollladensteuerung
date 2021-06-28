@@ -15,6 +15,11 @@ def dashboard():
     return render_template('dashboard.html')
 
 
+@app.route('/<file>.html')
+def test_content(file):
+    return render_template(f'{file}.html')
+
+
 @app.route('/handle_shutter_change', methods=['POST'])
 def handle_shutter_change():
     # call client class to send data to shutter control server in a new thread
