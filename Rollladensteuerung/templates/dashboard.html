@@ -4,33 +4,98 @@
     <title>Rollladen Steuerung</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $("#Rollladen").click(function(){
-                $("#main_content").load("/home");
-            });
-        });
-    </script>
 </head>
 <body>
-    <div class="side-navbar">
-        <div class="nav-title">
-             <h2><span>Dashboard</span></h2>
+
+    <div id="side-navbar">
+        <span id="title-icon"><i class="fa fa-bars"></i></span>
+        <span class="title" id="side-navbar-title">Home Assistent</span>
+        <div id="nav-menu">
+            <div class="nav-item" id="Dashboard">
+                <span class="nav-icon"><i class="fa fa-home"></i></span>
+                <span class="nav-title">Übersicht</span>
+            </div>
+            <div class="dropdown-btn" id="Rollladen">
+                <span class="nav-icon"><i class="fa fa-align-justify"></i></span>
+                <span class="nav-title">Rollladen</span>
+            </div>
+            <div class="dropdown-item" id="Rollladen-add">
+                <span class="nav-title">Hinzufügen</span>
+            </div>
+            <div class="dropdown-item" id="Rollladen-edit">
+                <span class="nav-title">Bearbeiten</span>
+            </div>
+            <div class="dropdown-item" id="Rollladen-delete">
+                <span class="nav-title">Löschen</span>
+            </div>
+            <div class="nav-item" id="Settings">
+                <span class="nav-icon"><i class="fa fa-cog"></i></span>
+                <span class="nav-title">Einstellungen</span>
+            </div>
         </div>
-        <div class="nav-item">
-            <div id="Rollladen">Rollladen</div>
+    </div>
+    
+    <div id="main-box">
+        <div id="topnav-box">
+            <div class="title" id="topnav-title">Home Assistent</div>
         </div>
-        <div class="nav-item">
-            <div>Info</div>
-        </div>
-        <div class="nav-item">
-            <div>Einstellungen</div>
+        <div id="main-content">
+
         </div>
     </div>
 
-    <div id="main_content">
+    <script>
+        /*media query only on page load*/
+        if ($(window).width() < 600){
+            console.log($(window).width());
+            $("#side-navbar").toggleClass("small");
+            $("#main-box").toggleClass("to-left");
+            $(".nav-title").toggleClass("hide");
+            $("#side-navbar-title").toggleClass("hide");
+        }
 
-    </div>
+        /*initially load rollladen.html*/
+        $("#main-content").load("rollladen.html");
+        
+        /*jQuery onclick functions*/
+        $(document).ready(function(){
+            $("#Dashboard").click(function(){
+                $("#main-content").load("rollladen.html");
+            });
+            $("#Rollladen").click(function(){
+                $("#main-content").load("rollladen.html");
+            });
+            $("#Settings").click(function(){
+                $("#main-content").load("settings.html");
+            });
+            $("#Rollladen-add").click(function(){
+                $("#main-content").load("rollladen-add.html");
+            });
+            $("#Rollladen-edit").click(function(){
+                $("#main-content").load("rollladen-edit.html");
+            });
+            $("#Rollladen-delete").click(function(){
+                $("#main-content").load("rollladen-delete.html");
+            });
+            $(".dropdown-btn").click(function(){
+            $(".dropdown-item").toggleClass("show");
+            });
+        });
+
+        /*hide or show side-navbar functionality*/
+        $("#title-icon").click(function(){
+            $("#side-navbar").toggleClass("small");
+            $(".nav-title").toggleClass("hide");
+            $("#side-navbar-title").toggleClass("hide");
+            /*only shift main-box to the right if screen is bigger than 600px; if screen is smaller than 600px the side-navbar will overlap the main-box*/
+            if (!($(window).width() < 600)){
+                $("#main-box").toggleClass("to-left");
+            }
+        });
+
+    </script>
 </body>
 </html>

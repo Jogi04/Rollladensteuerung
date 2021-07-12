@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div>
+        <div class="title">Rollladen</div>
+            <div class="card-content">
+            {% for shutter in shutters %}
+                <div class="card-content-item">
+                    <div class="card-item-title">
+                        {% if shutter.state == 'close' %}
+                        <span class="content-icon" style="color: #03a9f4;"><i class="fa fa-align-justify"></i></span>
+                        {% else %}
+                        <span class="content-icon"><i class="fa fa-align-justify"></i></span>
+                        {% endif %}
+                    <span>{{ shutter.room }}</span>
+                    </div>
+                    <form action="/handle_shutter_change" method="POST">
+                        {% if shutter.state == 'close' %}
+                        <input type="checkbox" name="state" value="close" onchange="this.form.submit()" checked/>
+                        {% else %}
+                        <input type="checkbox" name="state" value="close" onchange="this.form.submit()"/>
+                        {% endif %}
+                        <input type="hidden" name="state" value="open"/>
+                        <input type="hidden" name="room" value="{{ shutter.room }}"/>
+                        <input type="hidden" name="ip" value="{{ shutter.ip }}"/>
+                    </form>
+                </div>
+            {% endfor %}
+            </div>
+    </div>
+</body>
+</html>

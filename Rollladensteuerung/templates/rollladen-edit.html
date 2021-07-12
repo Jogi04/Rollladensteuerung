@@ -1,20 +1,22 @@
-{% extends 'base.html' %}
-{% block head %}
-    <link rel="stylesheet" href="/static/style.css">
-{% endblock head %}
-{% block body %}
-    <h2>Edit Shutter</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
     {% for shutter in shutters %}
-    <div class="edit-div">
+    <div class="card-content">
         <form action="/edit_shutter" method="post">
-            <label for="room">Room</label>
+            <label for="room">Raum</label>
             <input type="text" name="room" value="{{ shutter.room }}"/><br><br>
-            <label for="ip">IP Address</label>
+            <label for="ip">IP Adresse</label>
             <input type="text" name="ip" value="{{ shutter.ip }}"/>
             <input type="hidden" name="id" value="{{ shutter.id }}"/>
             <input type="hidden" name="state" value="open"><br><br>
-            <input type="submit" class="submit-btn" value="Save">
+            <input type="submit" class="submit-btn" value="Speichern">
         </form>
     </div>
     {% endfor %}
-{% endblock body %}
+</body>
+</html>

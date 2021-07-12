@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="card-content">
+        <form action="/delete_shutter" method="post">
+            <label for="room">Raum</label>
+            <select name="room">
+                {% for shutter in shutters %}
+                <option value="{{ shutter.room }}">{{ shutter.room }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" class="submit-btn" value="Löschen">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="card-content">
+        <form action="/add_shutter" method="post">
+            <label for="room">Raum</label>
+            <input type="text" name="room" placeholder="Raum"/><br><br>
+            <label for="ip">IP Adresse</label>
+            <input type="text" name="ip" placeholder="IP"/>
+            <input type="hidden" name="state" value="open"><br><br>
+            <input type="submit" class="submit-btn" value="Hinzufügen">
+        </form>
+    </div>
+</body>
+</html>

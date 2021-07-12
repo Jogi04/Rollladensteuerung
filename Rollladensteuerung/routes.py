@@ -7,25 +7,24 @@ from Rollladensteuerung.communication import Client
 @app.route('/')
 @app.route('/home')
 def home():
-    return render_template('home.html', shutters=Shutter.query.all())
-
-
-@app.route('/dashboard')
-def dashboard():
     return render_template('dashboard.html')
 
 
 @app.route('/<file>.html')
 def test_content(file):
-    return render_template(f'{file}.html')
+    if file in ['rollladen', 'rollladen-add', 'rollladen-edit', 'rollladen-delete']:
+        return render_template(f'{file}.html', shutters=Shutter.query.all())
+    else:
+        return render_template(f'{file}.html')
 
 
 @app.route('/handle_shutter_change', methods=['POST'])
 def handle_shutter_change():
     # call client class to send data to shutter control server in a new thread
     # sends data "open" or "close" to specified ip on port 80
-    Client(request.form['ip'], request.form['state'])
+    # Client(request.form['ip'], request.form['state'])
 
+    print(request.form['ip'],request.form['room'] , request.form['state'])
     update = Shutter.query.filter_by(room=request.form['room']).first()
     update.state = request.form['state']
     db.session.commit()
