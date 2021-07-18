@@ -19,6 +19,7 @@ void connect_to_wifi(){
  
   Serial.print("Connected to ");
   Serial.println(ssid);
+  Serial.println(WiFi.localIP());
 }
 
 
@@ -38,13 +39,12 @@ void loop() {
     while(client.connected()){
       while(client.available()){
         String msg = client.readString();
-        Serial.println(msg);
         static int led_state = 0;
         
-        if(msg == "close"){
+        if(msg == "open"){
           digitalWrite(LED, LOW);
           led_state = 0;
-        }else if(msg == "open"){
+        }else if(msg == "close"){
           digitalWrite(LED, HIGH);
           led_state = 1;
         }
