@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect
 from Rollladensteuerung import app, db
 from Rollladensteuerung.models import Shutter
-from Rollladensteuerung.communication import Client
+from Rollladensteuerung.communication import ThreadClient
 
 
 @app.route('/')
@@ -22,9 +22,8 @@ def test_content(file):
 def handle_shutter_change():
     # call client class to send data to shutter control server in a new thread
     # sends data "open" or "close" to specified ip on port 80
-    # Client(request.form['ip'], request.form['state'])
+    ThreadClient(request.form['ip'], request.form['state']).start()
 
-    print(request.form['ip'],request.form['room'] , request.form['state'])
     update = Shutter.query.filter_by(room=request.form['room']).first()
     update.state = request.form['state']
     db.session.commit()
