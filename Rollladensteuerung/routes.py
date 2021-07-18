@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect
 from Rollladensteuerung import app, db
 from Rollladensteuerung.models import Shutter
-from Rollladensteuerung.communication import ThreadClient
+from Rollladensteuerung.client import ThreadClient
 
 
 @app.route('/')
