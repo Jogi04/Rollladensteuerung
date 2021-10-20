@@ -1,4 +1,19 @@
 {
-    "font-size": "14",
-    "profile-name": "testuser"
+    "rooms": [
+        {
+            "room": "Wohnzimmer",
+            "ip": "192.168.178.45",
+            "state": "open"
+        },
+        {
+            "room": "Esszimmer",
+            "ip": "192.168.178.46",
+            "state": "open"
+        },
+        {
+            "room": "test",
+            "ip": "test",
+            "state": "open"
+        }
+    ]
 }
