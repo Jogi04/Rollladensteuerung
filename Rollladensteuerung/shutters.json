@@ -1,0 +1,14 @@
+{
+    "rooms": [
+        {
+            "room": "Wohnzimmer",
+            "ip": "192.168.178.45",
+            "state": "open"
+        },
+        {
+            "room": "Esszimmer",
+            "ip": "192.168.178.46",
+            "state": "open"
+        }
+    ]
+}
