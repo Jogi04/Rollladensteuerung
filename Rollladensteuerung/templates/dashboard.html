@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Rollladen Steuerung</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/base.css">
     <link rel="stylesheet" href="/static/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500&display=swap" rel="stylesheet">
@@ -30,6 +31,10 @@
             </div>
             <div class="dropdown-item" id="Rollladen-delete">
                 <span class="nav-title">Löschen</span>
+            </div>
+            <div class="nav-item" id="Server">
+                <span class="nav-icon"><i class="fa fa-server"></i></span>
+                <span class="nav-title">Server</span>
             </div>
             <div class="nav-item" id="Settings">
                 <span class="nav-icon"><i class="fa fa-cog"></i></span>
@@ -68,9 +73,6 @@
             $("#Rollladen").click(function(){
                 $("#main-content").load("rollladen.html");
             });
-            $("#Settings").click(function(){
-                $("#main-content").load("settings.html");
-            });
             $("#Rollladen-add").click(function(){
                 $("#main-content").load("rollladen-add.html");
             });
@@ -82,6 +84,12 @@
             });
             $(".dropdown-btn").click(function(){
             $(".dropdown-item").toggleClass("show");
+            });
+            $("#Settings").click(function(){
+                $("#main-content").load("settings.html");
+            });
+            $("#Server").click(function(){
+                $("#main-content").load("server.html");
             });
         });
 
