@@ -45,7 +45,7 @@ void loop() {
   if(client){
     while(client.connected()){
       while(client.available()){
-        String msg = client.readString();                     // "0" = down, "1" = up, "2" = stop
+        String msg = client.readString();                     // "0" = up, "1" = down, "2" = stop
         Serial.println(msg);
         
         if(msg == "0"){
