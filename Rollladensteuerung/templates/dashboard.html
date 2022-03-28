@@ -32,14 +32,18 @@
             <div class="dropdown-item" id="Rollladen-delete">
                 <span class="nav-title">Löschen</span>
             </div>
-            <div class="nav-item" id="Server">
+            <!--<div class="nav-item" id="Server">
                 <span class="nav-icon"><i class="fa fa-server"></i></span>
                 <span class="nav-title">Server</span>
             </div>
-            <div class="nav-item" id="Settings">
+            <div class="nav-item" id="Kamera">
+                <span class="nav-icon"><i class="fa fa-camera"></i></span>
+                <span class="nav-title">Kameras</span>
+            </div>-->
+        </div>
+        <div class="nav-item" id="Settings">
                 <span class="nav-icon"><i class="fa fa-cog"></i></span>
                 <span class="nav-title">Einstellungen</span>
-            </div>
         </div>
     </div>
     
@@ -85,11 +89,14 @@
             $(".dropdown-btn").click(function(){
             $(".dropdown-item").toggleClass("show");
             });
-            $("#Settings").click(function(){
-                $("#main-content").load("settings.html");
-            });
             $("#Server").click(function(){
                 $("#main-content").load("server.html");
+            });
+            $("#Kamera").click(function(){
+                $("#main-content").load("kamera.html");
+            });
+            $("#Settings").click(function(){
+                $("#main-content").load("settings.html");
             });
         });
 
