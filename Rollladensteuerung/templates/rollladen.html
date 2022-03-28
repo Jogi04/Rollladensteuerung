@@ -11,23 +11,33 @@
             {% for shutter in shutters %}
                 <div class="card-content-item">
                     <div class="card-item-title">
-                        {% if shutter.state == 'close' %}
+                        {% if shutter.state == '1' %}
                         <span class="content-icon" style="color: #03a9f4;"><i class="fa fa-align-justify"></i></span>
                         {% else %}
                         <span class="content-icon"><i class="fa fa-align-justify"></i></span>
                         {% endif %}
                     <span>{{ shutter.room }}</span>
                     </div>
-                    <form action="/handle_shutter_change" method="POST">
-                        {% if shutter.state == 'close' %}
-                        <input type="checkbox" name="state" value="close" onchange="this.form.submit()" checked/>
-                        {% else %}
-                        <input type="checkbox" name="state" value="close" onchange="this.form.submit()"/>
-                        {% endif %}
-                        <input type="hidden" name="state" value="open"/>
+                    <form action="/handle_shutter_change" id="open" method="POST">
+                        <input type="hidden" name="state" value="0"/>
                         <input type="hidden" name="room" value="{{ shutter.room }}"/>
                         <input type="hidden" name="ip" value="{{ shutter.ip }}"/>
                     </form>
+                    <form action="/handle_shutter_change" id="close" method="POST">
+                        <input type="hidden" name="state" value="1"/>
+                        <input type="hidden" name="room" value="{{ shutter.room }}"/>
+                        <input type="hidden" name="ip" value="{{ shutter.ip }}"/>
+                    </form>
+                    <form action="/handle_shutter_change" id="stop" method="POST">
+                        <input type="hidden" name="state" value="2"/>
+                        <input type="hidden" name="room" value="{{ shutter.room }}"/>
+                        <input type="hidden" name="ip" value="{{ shutter.ip }}"/>
+                    </form>
+                    <div>
+                        <button class="btn" type="submit" form="open">Hoch</button>
+                        <button class="btn" type="submit" form="close">Runter</button>
+                        <button class="btn" type="submit" form="stop">Stopp</button>
+                    </div>
                 </div>
             {% endfor %}
             </div>
