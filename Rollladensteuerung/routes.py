@@ -1,7 +1,7 @@
+import socket
 import json
 from flask import render_template, request, redirect
 from Rollladensteuerung import app
-from Rollladensteuerung.client import ThreadClient
 
 
 @app.route('/')
@@ -23,9 +23,9 @@ def test_content(file):
 
 @app.route('/handle_shutter_change', methods=['POST'])
 def handle_shutter_change():
-    # call client class to send data to shutter control server in a new thread
-    # sends data "open" or "close" to specified ip on port 80
-    ThreadClient(request.form['ip'], request.form['state']).start()
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect((request.form['ip'], 80))
+    client_socket.send(request.form['state'].encode())
 
     with open('Rollladensteuerung/shutters.json', 'r') as json_file:
         shutters_data = json.load(json_file)
