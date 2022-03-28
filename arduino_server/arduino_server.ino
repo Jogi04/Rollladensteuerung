@@ -10,6 +10,33 @@ int rollladen_run_time = 10000;
 
 WiFiServer server(80);
 
+TaskHandle_t relay_task_down;
+TaskHandle_t relay_task_up;
+
+
+void relay_task_down_code(void * parameter){
+  digitalWrite(relay_down, HIGH);
+  rollladen_status = 1;
+  delay(rollladen_run_time);
+  digitalWrite(relay_down, LOW);
+  vTaskDelete(relay_task_down);
+}
+
+
+void relay_task_up_code(void * parameter){
+  digitalWrite(relay_up, HIGH);
+  rollladen_status = 0;
+  delay(rollladen_run_time);
+  digitalWrite(relay_up, LOW);
+  vTaskDelete(relay_task_up);
+}
+
+
+void stop_rollladen(){
+  digitalWrite(relay_down, LOW);
+  digitalWrite(relay_up, LOW);
+}
+
 
 void connect_to_wifi(){
   WiFi.begin(ssid, password);
@@ -22,6 +49,7 @@ void connect_to_wifi(){
   Serial.println(WiFi.localIP());
 }
 
+
 void setup() {
   Serial.begin(115200);
   pinMode(relay_up, OUTPUT);
@@ -32,7 +60,8 @@ void setup() {
   connect_to_wifi();
   server.begin();
 }
- 
+
+
 void loop() {
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
@@ -49,51 +78,17 @@ void loop() {
         Serial.println(msg);
         
         if(msg == "0"){
-          digitalWrite(relay_up, HIGH);
-          rollladen_status = 0;
-          unsigned long time_now = millis();
-          
-          while (millis() < time_now + rollladen_run_time){
-            msg = client.readString();
-            if(msg == "2"){
-              rollladen_status = 2;
-              break;
-            }
-            else if(msg == "1"){
-              digitalWrite(relay_up, LOW);
-              digitalWrite(relay_down, HIGH);
-              break;
-            }
-          }
-          
-          digitalWrite(relay_up, LOW);
+          stop_rollladen();
+          xTaskCreatePinnedToCore(relay_task_up_code, "relay_task_up", 10000, NULL, 0, &relay_task_up, 0);
         }
         
         else if(msg == "1"){
-          digitalWrite(relay_down, HIGH);
-          rollladen_status = 1;
-          unsigned long time_now = millis();
-          
-          while (millis() < time_now + rollladen_run_time){
-            msg = client.readString();
-            if(msg == "2"){
-              rollladen_status = 2;
-              break;
-            }
-            else if(msg == "0"){
-              digitalWrite(relay_down, LOW);
-              digitalWrite(relay_up, HIGH);
-              break;
-            }
-          }
-          
-          digitalWrite(relay_down, LOW);
+          stop_rollladen();
+          xTaskCreatePinnedToCore(relay_task_down_code, "relay_task_down", 10000, NULL, 0, &relay_task_down, 0);
         }
         
         else if(msg == "2"){
-          digitalWrite(relay_up, LOW);
-          digitalWrite(relay_down, LOW);
-          rollladen_status = 2;
+          stop_rollladen();
         }
       }
     }
