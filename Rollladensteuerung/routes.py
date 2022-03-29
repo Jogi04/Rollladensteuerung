@@ -1,7 +1,10 @@
-import socket
 import json
 from flask import render_template, request, redirect
 from Rollladensteuerung import app
+from Rollladensteuerung.server_communication import ServerSocketThread
+
+
+files_dir = 'Rollladensteuerung/'
 
 
 @app.route('/')
@@ -13,7 +16,7 @@ def home():
 @app.route('/<file>.html')
 def test_content(file):
     if file in ['rollladen', 'rollladen-add', 'rollladen-edit', 'rollladen-delete']:
-        with open('Rollladensteuerung/shutters.json', 'r') as json_file:
+        with open(f'{files_dir}shutters.json', 'r') as json_file:
             shutters_data = json.load(json_file)
             json_file.close()
         return render_template(f'{file}.html', shutters=shutters_data['rooms'])
@@ -23,11 +26,10 @@ def test_content(file):
 
 @app.route('/handle_shutter_change', methods=['POST'])
 def handle_shutter_change():
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((request.form['ip'], 80))
-    client_socket.send(request.form['state'].encode())
+    server_thread = ServerSocketThread(request.form['ip'], request.form['state'])
+    server_thread.start()
 
-    with open('Rollladensteuerung/shutters.json', 'r') as json_file:
+    with open(f'{files_dir}shutters.json', 'r') as json_file:
         shutters_data = json.load(json_file)
         json_file.close()
 
@@ -35,7 +37,7 @@ def handle_shutter_change():
         if i['room'] == request.form['room']:
             i['state'] = request.form['state']
 
-    with open('Rollladensteuerung/shutters.json', 'w') as out_file:
+    with open(f'{files_dir}shutters.json', 'w') as out_file:
         out_file.write(json.dumps(shutters_data, indent=4))
         out_file.close()
 
@@ -47,7 +49,7 @@ def add_shutter():
     if request.method == 'GET':
         return render_template('add_shutter.html')
     elif request.method == 'POST':
-        with open('Rollladensteuerung/shutters.json', 'r') as json_file:
+        with open(f'{files_dir}shutters.json', 'r') as json_file:
             shutters_data = json.load(json_file)
             json_file.close()
 
@@ -57,7 +59,7 @@ def add_shutter():
             'state': request.form['state']
         })
 
-        with open('Rollladensteuerung/shutters.json', 'w') as out_file:
+        with open(f'{files_dir}shutters.json', 'w') as out_file:
             out_file.write(json.dumps(shutters_data, indent=4))
             out_file.close()
 
@@ -66,7 +68,7 @@ def add_shutter():
 
 @app.route('/edit_shutter', methods=['POST'])
 def edit_shutter():
-    with open('Rollladensteuerung/shutters.json', 'r') as json_file:
+    with open(f'{files_dir}shutters.json', 'r') as json_file:
         shutters_data = json.load(json_file)
         json_file.close()
 
@@ -74,7 +76,7 @@ def edit_shutter():
         if i['room'] == request.form['room']:
             i['ip'] = request.form['ip']
 
-    with open('Rollladensteuerung/shutters.json', 'w') as out_file:
+    with open(f'{files_dir}shutters.json', 'w') as out_file:
         out_file.write(json.dumps(shutters_data, indent=4))
         out_file.close()
 
@@ -83,7 +85,7 @@ def edit_shutter():
 
 @app.route('/delete_shutter', methods=['POST'])
 def delete_shutter():
-    with open('Rollladensteuerung/shutters.json', 'r') as json_file:
+    with open(f'{files_dir}shutters.json', 'r') as json_file:
         shutters_data = json.load(json_file)
         json_file.close()
 
@@ -91,7 +93,7 @@ def delete_shutter():
         if i['room'] == request.form['room']:
             shutters_data['rooms'].remove(i)
 
-    with open('Rollladensteuerung/shutters.json', 'w') as out_file:
+    with open(f'{files_dir}shutters.json', 'w') as out_file:
         out_file.write(json.dumps(shutters_data, indent=4))
         out_file.close()
 
@@ -100,7 +102,7 @@ def delete_shutter():
 
 @app.route('/settings_change', methods=['POST'])
 def settings_change():
-    with open('Rollladensteuerung/settings.json', 'w') as out_file:
+    with open(f'{files_dir}shutters.json', 'w') as out_file:
         out_file.write(json.dumps(request.form.to_dict(), indent=4))
         out_file.close()
 
